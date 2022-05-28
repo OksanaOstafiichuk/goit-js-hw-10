@@ -18,3 +18,41 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 30px;
+  height: 20px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+p {
+  display: inline-block;
+  font-size: 18px;
+  vertical-align: middle;
+  font-weight: 500;
+}
+
+div > ul {
+  padding: 0;
+}
+
+h2 {
+  display: inline-block;
+    vertical-align: middle;
+    font-size: 30px;
+    margin: 0;
+}
+
+li {
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+span {
+  font-weight: 700;
+}

@@ -14,13 +14,16 @@ const refs = {
 refs.input.addEventListener('input', debounce(onSearchCountries, DEBOUNCE_DELAY));
 
 function onSearchCountries(evt) {
-    refs.countryList.innerHTML = '';
-    refs.countryInfo.innerHTML = '';
 
     const name = evt.target.value.trim();
 
     if (name === '') {
-        fetchCountries(name)
+        refs.countryList.innerHTML = '';
+        refs.countryInfo.innerHTML = '';
+        return;
+    }
+
+    fetchCountries(name)
         .then(name => {
             if (name.length > 10) {
                 Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
@@ -40,7 +43,6 @@ function onSearchCountries(evt) {
             }
         })
         .catch(error => Notiflix.Notify.failure('Oops, there is no country with that name'))
-    }
 }
 
 

@@ -36,7 +36,7 @@ function showCountries(countries) {
         return;
     }
 
-    if (countries.length > 2 && countries.length < 10) {
+    if (countries.length >= 2 && countries.length <= 10) {
         refs.countryInfo.innerHTML = '';
         renderCountryList(countries);
         return;

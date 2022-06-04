@@ -14,7 +14,6 @@ const refs = {
 refs.input.addEventListener('input', debounce(onSearchCountries, DEBOUNCE_DELAY));
 
 function onSearchCountries(evt) {
-
     const name = evt.target.value.trim();
 
     if (name === '') {
@@ -24,27 +23,28 @@ function onSearchCountries(evt) {
     }
 
     fetchCountries(name)
-        .then(name => {
-            if (name.length > 10) {
-                Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
-                return;
-            }
-
-            if (name.length > 2 && name.length < 10) {
-                const list = renderCountryList(name);
-                refs.countryList.innerHTML = list;
-                return;
-            }
-
-            if (name.length === 1) {
-                const info = renderCountryInfo(name);
-                refs.countryInfo.innerHTML = info;
-                return
-            }
-        })
-        .catch(error => Notiflix.Notify.failure('Oops, there is no country with that name'))
+        .then(showCountries)
+        .catch(error => {
+            Notiflix.Notify.failure('Oops, there is no country with that name')
+        });
 }
 
+function showCountries(countries) {
+
+    if (countries.length > 10) {
+        Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
+        return;
+    }
+
+    if (countries.length > 2 && countries.length < 10) {
+        refs.countryInfo.innerHTML = '';
+        renderCountryList(countries);
+        return;
+    }
+
+    refs.countryList.innerHTML = '';
+    renderCountryInfo(countries);
+}
 
 function renderCountryList(countries) {
     const markupList = countries.map(country => {
@@ -54,7 +54,7 @@ function renderCountryList(countries) {
         </li>`
     }).join('');
 
-    return markupList;
+    refs.countryList.innerHTML = markupList;
 }
 
 function renderCountryInfo(countries) {
@@ -68,5 +68,5 @@ function renderCountryInfo(countries) {
             </ul>`
     }).join('');
 
-    return murkupInfo;
+    refs.countryInfo.innerHTML = murkupInfo;
 }
